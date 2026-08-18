@@ -109,17 +109,42 @@
           <h3 style="font-family: var(--font-display); font-size: 1.75rem; color: var(--dark); margin-bottom: 24px;">Version History</h3>
           
           <div style="margin-bottom: 24px;">
-            <strong style="color: var(--accent); font-size: 1.15rem; display: block; margin-bottom: 8px;">V2.3.2 (Latest)</strong>
+            <strong style="color: var(--accent); font-size: 1.15rem; display: block; margin-bottom: 8px;">V2.3.2 (Latest Fixes)</strong>
             <ul style="list-style: none; padding: 0; font-size: 1rem;">
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Google Gemini AI Integration:</strong> Configure Google Gemini as your primary companion model with your own API key.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Show Password Toggle:</strong> Added an eye icon in the Auth Screen to let users reveal or hide their password during sign up and login.</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Cloud Key Sync:</strong> API keys securely encrypt and sync across your devices via your Yori Account.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Get Free API Keys Button:</strong> Added a shortcut on the Home Screen to easily obtain free API keys.</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Performance Enhancements:</strong> Optimized battery usage and reduced UI rendering lag.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Version Alignment:</strong> Fixed the version string in the About Screen to properly reflect the latest build (2.3.2).</div>
               </li>
+              <li style="margin-bottom: 12px; display: flex; gap: 12px;">
+                <span style="color: var(--accent);">•</span> <div><strong>Decryption Feedback:</strong> API Key decryption issues no longer crash the developer dashboard; invalid keys will gracefully display "Error decrypting", allowing you to safely re-save them.</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div style="margin-bottom: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+            <strong style="display: block; margin-bottom: 8px; font-size: 1.1rem; color: var(--dark);">V2.3.1 (Latest Hotfix)</strong>
+            <ul style="list-style: none; padding: 0; font-size: 1rem;">
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Google Gemini AI Integration:</strong> You can now configure and use Google Gemini (<code>gemini-1.5-flash</code>) as your primary companion model with your own API key.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Save State UI Fix:</strong> API key settings now instantly update to "Configured" when saved in the Settings menu without needing to close and reopen the screen.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Performance Enhancements:</strong> Optimized the Yori Face widget to completely eliminate battery drain and UI lag when motion is disabled or stationary. The UI no longer renders at 60fps unnecessarily.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Authentication Diagnostics:</strong> The Google Sign-In button now displays the exact system error if it fails (e.g., missing SHA-1 key), rather than a generic error.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Cloud Key Syncing:</strong> Restored AES encryption configuration length so API keys seamlessly sync and persist across your devices via your Yori Account.</div></li>
+            </ul>
+          </div>
+          
+          <div style="margin-bottom: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
+            <strong style="display: block; margin-bottom: 8px; font-size: 1.1rem; color: var(--dark);">V2.3.0</strong>
+            <ul style="list-style: none; padding: 0; font-size: 1rem;">
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Local Inference Foundation:</strong> Restructured the codebase to use <code>AiService</code> interfaces natively, making Yori ready for on-device reasoning models.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Cloud Persistence Backend:</strong> Transitioned from purely local <code>SharedPreferences</code> to full Firebase Firestore persistence. Your API keys, companion settings, and account details now sync to the cloud.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Secure Storage Layer:</strong> Added AES-encrypted Secure Storage for API keys. They are decrypted in memory only when used, ensuring your private keys remain safe.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>New UI/UX Identity:</strong> Updated the design system to a darker, more calming void color palette with new typography scaling across the Settings and Auth screens.</div></li>
+              <li style="margin-bottom: 8px; display: flex; gap: 12px;"><span>•</span> <div><strong>Login & Auth System:</strong> Introduced the <code>AuthScreen</code> allowing users to sign up via Email or Google, attaching their companion data directly to their profile.</div></li>
             </ul>
           </div>
           
