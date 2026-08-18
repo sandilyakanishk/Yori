@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Outer clay ring -->
+  <circle cx="50" cy="50" r="48" fill="#1A1817" stroke="#e1d6c3" stroke-width="4"/>
+  <!-- Left Eye -->
+  <circle cx="35" cy="45" r="9" fill="#FFFFFF"/>
+  <!-- Right Eye -->
+  <circle cx="65" cy="45" r="9" fill="#FFFFFF"/>
+  <!-- Mouth -->
+  <circle cx="50" cy="65" r="5.5" fill="#D6453D"/>
+</svg>
