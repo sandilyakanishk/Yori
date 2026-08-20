@@ -20,11 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     mouseY = e.clientY;
   });
 
-  document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
-  document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+  document.addEventListener('mousedown', () => { if(cursor) cursor.classList.add('clicking') });
+  document.addEventListener('mouseup', () => { if(cursor) cursor.classList.remove('clicking') });
 
   // Handle dark mode cursor and hover states
   document.addEventListener('mouseover', (e) => {
+    if (!cursor) return;
     const isDark = e.target.closest('[data-theme="dark"]');
     if (isDark) cursor.classList.add('light-mode');
     else cursor.classList.remove('light-mode');
