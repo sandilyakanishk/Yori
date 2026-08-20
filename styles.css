@@ -1155,6 +1155,37 @@ body {
 }
 
 /* ============================================================
+   MODALS (ADBLOCK)
+   ============================================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 10, 20, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-expo);
+}
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  max-width: 440px;
+  width: 90%;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.4s var(--ease-expo);
+}
+.modal-overlay.show .modal-content {
+  transform: translateY(0) scale(1);
+}
+
+/* ============================================================
    RESPONSIVE OVERHAUL (Flawless Flow)
    ============================================================ */
 @media (max-width: 1024px) { 

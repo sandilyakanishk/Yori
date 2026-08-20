@@ -57,6 +57,10 @@
         <a href="#about" class="nav-link">Why Yori?</a>
         <a href="#pipeline" class="nav-link">How It Works</a>
         <a href="#features" class="nav-link">Features</a>
+        <button class="support-ad-btn nav-support-btn" style="background: none; border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 20px; font-weight: 500; cursor: pointer; transition: all 0.3s; font-size: 0.9rem; margin-left: 10px; display: flex; align-items: center; justify-content: center; min-width: 110px;">
+          <span class="btn-text" style="display: flex; align-items: center; gap: 6px;">Support Us 💙</span>
+          <div class="support-spinner" style="display: none; width: 14px; height: 14px; border: 2px solid var(--text2); border-top-color: transparent; border-radius: 50%; animation: support-spin 0.8s linear infinite;"></div>
+        </button>
         <a href="https://github.com/sandilyakanishk/Yori/releases/latest" class="nav-link btn-nav" id="nav-cta" target="_blank" data-theme="dark">Download Yori</a>
       </div>
     </div>
@@ -121,10 +125,19 @@
       <div class="section-tag">Get Started</div>
       <h2 class="section-title reveal">Bring Yori to<br/><em>Life.</em></h2>
       
-      <div class="hero-btns reveal" style="margin-bottom: 40px;">
-        <a href="https://github.com/sandilyakanishk/Yori/releases/latest" class="btn-primary" data-theme="dark" download>Download the App</a>
-        <a href="api-keys.html" class="btn-secondary" data-theme="dark">Get Free API Keys</a>
-      </div>
+        <p class="hero-subtitle reveal" style="transition-delay: 0.1s;">
+          An ultra-fast, local-first AI companion app built for clarity and speed. Powered by open-source models, beautifully designed, and completely free.
+        </p>
+        <div class="hero-cta reveal" style="transition-delay: 0.2s; margin-bottom: 24px;">
+          <a href="https://github.com/sandilyakanishk/Yori/releases/latest" class="btn-primary" data-theme="dark">Download APK</a>
+          <a href="#pipeline" class="btn-secondary" data-theme="dark">See How It Works</a>
+        </div>
+        <div class="reveal" style="transition-delay: 0.3s; margin-bottom: 40px;">
+          <button class="support-ad-btn btn-secondary" data-theme="dark" style="padding: 10px 24px; display: inline-flex; align-items: center; justify-content: center; width: auto; min-width: 200px;">
+            <span class="btn-text">Watch Ad to Support Us 💙</span>
+            <div class="support-spinner" style="display: none; width: 18px; height: 18px; border: 2px solid var(--text2); border-top-color: transparent; border-radius: 50%; animation: support-spin 0.8s linear infinite;"></div>
+          </button>
+        </div>
 
       <div class="story-grid">
         <div class="story-text reveal card" style="grid-column: 1 / -1; padding: 40px; margin-top: 20px;">
@@ -464,13 +477,10 @@
       <h2 class="section-title reveal">Support the<br/><em>Project.</em></h2>
       <div class="story-grid">
         <div class="story-text reveal" style="max-width: 600px; margin: 0 auto; text-align: center;">
-          <p>Yori is built by a tiny independent team.</p>
-          <p>To help cover the heavy server costs of keeping the AI running and to keep the app completely free for everyone, would you mind taking just 30 seconds to watch a quick sponsor message?</p>
-          <p>Your voluntary support means the absolute world to us and keeps this project alive.</p>
-          
-          <button id="support-ad-btn" class="btn-primary support-btn" data-theme="dark">
-            <span class="btn-text">Watch Ad & Support Yori</span>
-            <div class="spinner" id="support-spinner" style="display: none;"></div>
+          <p>Yori is built by a tiny independent team. To help cover the heavy server costs of keeping the AI running and to keep the app completely free for everyone, would you mind taking just 30 seconds to watch a quick sponsor message? Your voluntary support means the world to us!</p>
+          <button class="support-ad-btn" data-theme="dark">
+            <span class="btn-text">Watch Ad to Support Us 💙</span>
+            <div class="support-spinner" style="display: none;"></div>
           </button>
         </div>
       </div>
@@ -486,6 +496,17 @@
   <div class="toast-notification" id="thank-you-toast">
     <div class="toast-icon">🎉</div>
     <div class="toast-text">Thank you for supporting Yori!</div>
+  </div>
+
+  <!-- ADBLOCK MODAL -->
+  <div class="modal-overlay" id="adblock-modal">
+    <div class="modal-content card">
+      <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--dark); margin-bottom: 16px;">Ad Blocker Detected 🛡️</h3>
+      <p style="color: var(--text2); margin-bottom: 24px; line-height: 1.6;">It looks like you have an ad blocker enabled. We completely understand! However, Yori relies on these small sponsor messages to cover server costs and stay completely free. <br><br>If you'd like to support the project, please consider pausing your ad blocker for this site. 💙</p>
+      <div style="display: flex; gap: 12px; justify-content: flex-end;">
+        <button class="btn-secondary" id="adblock-close" data-theme="dark" style="padding: 10px 20px;">Maybe Later</button>
+      </div>
+    </div>
   </div>
 
   <!-- FOOTER -->

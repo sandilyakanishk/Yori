@@ -313,17 +313,47 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================
      7. SUPPORT US ADSENSE LOGIC
      ========================================== */
-  const supportBtn = document.getElementById('support-ad-btn');
-  const supportSpinner = document.getElementById('support-spinner');
-  const btnText = supportBtn ? supportBtn.querySelector('.btn-text') : null;
+  const supportBtns = document.querySelectorAll('.support-ad-btn');
   const thankYouToast = document.getElementById('thank-you-toast');
+  const adblockModal = document.getElementById('adblock-modal');
+  const adblockClose = document.getElementById('adblock-close');
 
-  if (supportBtn) {
-    supportBtn.addEventListener('click', () => {
+  if (adblockClose) {
+    adblockClose.addEventListener('click', () => {
+      adblockModal.classList.remove('show');
+    });
+  }
+
+  // Check if adblock is enabled by trying to fetch a known ad script
+  let isAdblockEnabled = false;
+  async function checkAdBlocker() {
+    try {
+      await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { method: 'HEAD', mode: 'no-cors' });
+      return false; // not blocked
+    } catch (e) {
+      return true; // blocked (fetch throws error when blocked by uBlock etc)
+    }
+  }
+  checkAdBlocker().then(blocked => {
+    isAdblockEnabled = blocked;
+  });
+
+  supportBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (isAdblockEnabled && adblockModal) {
+        adblockModal.classList.add('show');
+        return;
+      }
+
+      const supportSpinner = btn.querySelector('.support-spinner');
+      const btnText = btn.querySelector('.btn-text');
+      
       // Show spinner, hide text
       if (supportSpinner) supportSpinner.style.display = 'block';
       if (btnText) btnText.style.display = 'none';
-      supportBtn.disabled = true;
+      btn.disabled = true;
 
       // Open the Adsterra Smartlink ad in a new tab immediately
       const adUrl = "https://www.effectivecpmnetwork.com/pzzjt2dzf?key=d107a5bc4a1adae77496ce6684196d6a";
@@ -334,8 +364,8 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         // Hide spinner, show text
         if (supportSpinner) supportSpinner.style.display = 'none';
-        if (btnText) btnText.style.display = 'block';
-        supportBtn.disabled = false;
+        if (btnText) btnText.style.display = 'flex'; // Use flex to maintain icon alignment
+        btn.disabled = false;
 
         // Show Thank You toast
         if (thankYouToast) {
@@ -346,5 +376,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }, 2500);
     });
-  }
+  });
 });
