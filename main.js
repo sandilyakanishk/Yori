@@ -309,4 +309,39 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 250);
     });
   }
+
+  /* ==========================================
+     7. SUPPORT US ADSENSE LOGIC
+     ========================================== */
+  const supportBtn = document.getElementById('support-ad-btn');
+  const supportSpinner = document.getElementById('support-spinner');
+  const btnText = supportBtn ? supportBtn.querySelector('.btn-text') : null;
+  const thankYouToast = document.getElementById('thank-you-toast');
+
+  if (supportBtn) {
+    supportBtn.addEventListener('click', () => {
+      // Show spinner, hide text
+      if (supportSpinner) supportSpinner.style.display = 'block';
+      if (btnText) btnText.style.display = 'none';
+      supportBtn.disabled = true;
+
+      // Simulate ad load/display time (Since we don't have a real Rewarded Ad setup here yet)
+      // In a real AdSense rewarded ad, you would call googletag.pubads().display(...)
+      // and listen for the 'rewardedSlotGranted' event.
+      setTimeout(() => {
+        // Hide spinner, show text
+        if (supportSpinner) supportSpinner.style.display = 'none';
+        if (btnText) btnText.style.display = 'block';
+        supportBtn.disabled = false;
+
+        // Show Thank You toast
+        if (thankYouToast) {
+          thankYouToast.classList.add('show');
+          setTimeout(() => {
+            thankYouToast.classList.remove('show');
+          }, 4000);
+        }
+      }, 2500); // Simulate 2.5s ad experience
+    });
+  }
 });

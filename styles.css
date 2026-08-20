@@ -1081,6 +1081,80 @@ body {
 }
 
 /* ============================================================
+   SUPPORT US SECTION (AdSense)
+   ============================================================ */
+.support-section {
+  background: var(--bg3);
+  background-image: var(--grain);
+  background-size: 300px 300px;
+  background-attachment: fixed;
+  border-top: 1px solid var(--border);
+  padding-bottom: 60px;
+}
+
+.support-btn {
+  position: relative;
+  overflow: hidden;
+  margin-top: 24px;
+  animation: pulse-glow 3s infinite alternate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 4px 0 rgba(0,0,0,0.28), 0 8px 24px rgba(30,20,10,0.2), inset 0 1px 0 rgba(255,255,255,0.09); }
+  100% { box-shadow: 0 4px 0 rgba(0,0,0,0.28), 0 12px 36px rgba(217,96,58,0.45), inset 0 1px 0 rgba(255,255,255,0.09); }
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   THANK YOU TOAST
+   ============================================================ */
+.toast-notification {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--dark);
+  color: var(--bg);
+  padding: 16px 32px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  box-shadow: 0 12px 32px rgba(30,20,10,0.3);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.6s var(--ease-expo), opacity 0.6s var(--ease-expo);
+}
+
+.toast-notification.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  font-size: 1.25rem;
+}
+
+/* ============================================================
    RESPONSIVE OVERHAUL (Flawless Flow)
    ============================================================ */
 @media (max-width: 1024px) { 

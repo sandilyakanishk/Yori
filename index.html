@@ -15,6 +15,9 @@
   <!-- CSS & JS -->
   <link rel="stylesheet" href="styles.css" />
   <script defer src="main.js"></script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2516613692917353" crossorigin="anonymous"></script>
 </head>
 <body>
   
@@ -453,6 +456,38 @@
       </div>
     </div>
   </section>
+
+  <!-- NEW SECTION: SUPPORT US -->
+  <section class="section support-section" id="support">
+    <div class="section-inner">
+      <div class="section-tag">Help Keep Yori Free 💙</div>
+      <h2 class="section-title reveal">Support the<br/><em>Project.</em></h2>
+      <div class="story-grid">
+        <div class="story-text reveal" style="max-width: 600px; margin: 0 auto; text-align: center;">
+          <p>Yori is built by a tiny independent team.</p>
+          <p>To help cover the heavy server costs of keeping the AI running and to keep the app completely free for everyone, would you mind taking just 30 seconds to watch a quick sponsor message?</p>
+          <p>Your voluntary support means the absolute world to us and keeps this project alive.</p>
+          
+          <button id="support-ad-btn" class="btn-primary support-btn" data-theme="dark">
+            <span class="btn-text">Watch Ad & Support Yori</span>
+            <div class="spinner" id="support-spinner" style="display: none;"></div>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Hidden AdSense Container for Rewarded/Interstitial Ads -->
+      <div id="ad-container" style="display: none;">
+         <!-- AdSense ad will be injected here -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- THANK YOU TOAST -->
+  <div class="toast-notification" id="thank-you-toast">
+    <div class="toast-icon">🎉</div>
+    <div class="toast-text">Thank you for supporting Yori!</div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="footer" id="footer" data-theme="dark">
     <div class="footer-inner">
