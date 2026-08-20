@@ -145,28 +145,25 @@
             <strong style="color: var(--accent); font-size: 1.15rem; display: block; margin-bottom: 8px;">V2.3.2 (Major Feature Drop)</strong>
             <ul style="list-style: none; padding: 0; font-size: 1rem;">
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Dynamic GPS Location Tracking:</strong> Completely replaced native location code with a pure Dart implementation, fixing severe Android build failures. Grabs precise GPS coordinates, converts to human-readable strings, and saves to Firestore.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Location Awareness:</strong> Yori can now understand your general region to provide better, more accurate context for weather and local queries.</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Real-Time Welcome Emails:</strong> New users receive a beautiful HTML welcome email with a feedback link exactly when they finish setup. Uses secure native dispatch without external servers.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Seamless Device Sync:</strong> Getting a new phone? Log into Yori on a new device, and your API keys and profile settings will securely and automatically sync over.</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>True Multi-Account Data Segregation:</strong> Local chat history and Secure API keys are now strictly tied to the current user's UID, preventing data bleed if multiple accounts use the same device.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Private Profiles:</strong> If you share a device with someone else, your chat history and API keys are now strictly locked to your individual account.</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>API Key Cloud Sync & Restoration:</strong> When you log into a new device, the app instantly reaches into Firestore, downloads your encrypted keys, decrypts them natively, and restores them to local Secure Storage.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Smarter Memory:</strong> Yori now instantly learns your name and preferences the precise moment you finish setting up your profile.</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Instant AI Fact Registration:</strong> The exact second a user finishes setting up their profile, their name is forcefully injected as a core identity Fact in Yori's local memory.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Update Notifications:</strong> You will now receive a beautiful welcome email when you join, as well as notifications whenever a major new version of Yori is released!</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Admin Broadcast Release Emails:</strong> Admins can now instantly blast beautiful HTML update notifications to all registered users from the app dashboard when a new APK drops.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Smoother Navigation:</strong> Fixed a rare bug where logging out of the app could leave you on a blank screen.</div>
               </li>
               <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Routing Glitch Fix:</strong> The Logout button now completely resets the app's navigation stack back to the root AuthGate, preventing users from getting stuck on blank screens.</div>
-              </li>
-              <li style="margin-bottom: 12px; display: flex; gap: 12px;">
-                <span style="color: var(--accent);">•</span> <div><strong>Usability Fixes:</strong> Added a "Show Password" toggle on Auth screens, a "Get API Keys" shortcut on the home screen, fixed version alignment, and added graceful decryption failure UI for keys.</div>
+                <span style="color: var(--accent);">•</span> <div><strong>Quality of Life:</strong> Added a "Show Password" toggle on the login screen, quick shortcuts to get Free API keys, and more graceful error handling.</div>
               </li>
             </ul>
           </div>
