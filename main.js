@@ -325,9 +325,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (btnText) btnText.style.display = 'none';
       supportBtn.disabled = true;
 
-      // Simulate ad load/display time (Since we don't have a real Rewarded Ad setup here yet)
-      // In a real AdSense rewarded ad, you would call googletag.pubads().display(...)
-      // and listen for the 'rewardedSlotGranted' event.
+      // Open the Adsterra Smartlink ad in a new tab immediately
+      const adUrl = "https://www.effectivecpmnetwork.com/pzzjt2dzf?key=d107a5bc4a1adae77496ce6684196d6a";
+      window.open(adUrl, '_blank');
+
+      // Keep the button "loading" for a short time to simulate processing
+      // and then show the thank you toast.
       setTimeout(() => {
         // Hide spinner, show text
         if (supportSpinner) supportSpinner.style.display = 'none';
@@ -341,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
             thankYouToast.classList.remove('show');
           }, 4000);
         }
-      }, 2500); // Simulate 2.5s ad experience
+      }, 2500);
     });
   }
 });
