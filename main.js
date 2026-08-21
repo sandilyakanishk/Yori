@@ -364,28 +364,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Check if adblock is enabled by trying to fetch a known ad script
-  let isAdblockEnabled = false;
-  async function checkAdBlocker() {
-    try {
-      await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { method: 'HEAD', mode: 'no-cors' });
-      return false; // not blocked
-    } catch (e) {
-      return true; // blocked (fetch throws error when blocked by uBlock etc)
-    }
-  }
-  checkAdBlocker().then(blocked => {
-    isAdblockEnabled = blocked;
-  });
-
   supportBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-
-      if (isAdblockEnabled && adblockModal) {
-        adblockModal.classList.add('show');
-        return;
-      }
 
       const supportSpinner = btn.querySelector('.support-spinner');
       const btnText = btn.querySelector('.btn-text');
@@ -397,7 +378,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Open the Adsterra Smartlink ad in a new tab immediately
       const adUrl = "https://www.effectivecpmnetwork.com/pzzjt2dzf?key=d107a5bc4a1adae77496ce6684196d6a";
-      window.open(adUrl, '_blank');
+      const adWindow = window.open(adUrl, '_blank');
+
+      // Mobile browsers may block a new tab. Fall back to the current tab so the support action still works.
+      if (!adWindow) window.location.assign(adUrl);
 
       // Keep the button "loading" for a short time to simulate processing
       // and then show the thank you toast.
