@@ -5,35 +5,44 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasCoarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  const allowMotion = !prefersReducedMotion && !hasCoarsePointer;
 
   /* ==========================================
      1. CUSTOM SMART CURSOR & HOVER
      ========================================== */
   const cursor = document.getElementById('custom-cursor');
+  const cursorEnabled = Boolean(cursor && allowMotion);
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
   let cursorTx = mouseX;
   let cursorTy = mouseY;
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
+  if (cursor && !cursorEnabled) cursor.style.display = 'none';
 
-  document.addEventListener('mousedown', () => { if(cursor) cursor.classList.add('clicking') });
-  document.addEventListener('mouseup', () => { if(cursor) cursor.classList.remove('clicking') });
+  if (cursorEnabled) {
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+    document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+  }
 
   // Handle dark mode cursor and hover states
-  document.addEventListener('mouseover', (e) => {
-    if (!cursor) return;
-    const isDark = e.target.closest('[data-theme="dark"]');
-    if (isDark) cursor.classList.add('light-mode');
-    else cursor.classList.remove('light-mode');
+  if (cursorEnabled) {
+    document.addEventListener('mouseover', (e) => {
+      const isDark = e.target.closest('[data-theme="dark"]');
+      if (isDark) cursor.classList.add('light-mode');
+      else cursor.classList.remove('light-mode');
 
-    const isHoverable = e.target.closest('a, button, [role="button"], .card, .feature-card, .speech-bubble');
-    if (isHoverable) cursor.classList.add('hovered');
-    else cursor.classList.remove('hovered');
-  });
+      const isHoverable = e.target.closest('a, button, [role="button"], .card, .feature-card, .speech-bubble');
+      if (isHoverable) cursor.classList.add('hovered');
+      else cursor.classList.remove('hovered');
+    });
+  }
 
   /* ==========================================
      2. YORI EMOTIONS SYSTEM
@@ -48,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const demoRight = document.getElementById('demo-right-eye');
   const persLeft = document.getElementById('pers-left');
   const persRight = document.getElementById('pers-right');
+  const hasAnimatedFaces = [heroLeft, heroRight, demoLeft, demoRight, persLeft, persRight].some(Boolean);
 
   // Eye movement boundaries
   const maxTx = 14;
@@ -154,26 +164,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1500 + Math.random() * 1000);
   }
 
-  // Randomly trigger idle emotions every 4-8 seconds
-  setInterval(() => {
-    if (currentEmotion === 'idle' && Math.random() > 0.4) {
-      const emotions = ['thinking', 'happy', 'confused'];
-      triggerEmotion(emotions[Math.floor(Math.random() * emotions.length)]);
-    }
-  }, 5000);
+  // Randomly trigger idle emotions only on pages that contain animated faces.
+  if (allowMotion && hasAnimatedFaces) {
+    setInterval(() => {
+      if (currentEmotion === 'idle' && Math.random() > 0.4) {
+        const emotions = ['thinking', 'happy', 'confused'];
+        triggerEmotion(emotions[Math.floor(Math.random() * emotions.length)]);
+      }
+    }, 5000);
+  }
 
   // Random blinking (independent of state)
-  setInterval(() => {
-    const eyes = [heroLeft, heroRight, persLeft, persRight];
-    if (demoAwake) eyes.push(demoLeft, demoRight);
+  if (allowMotion && hasAnimatedFaces) {
+    setInterval(() => {
+      const eyes = [heroLeft, heroRight, persLeft, persRight];
+      if (demoAwake) eyes.push(demoLeft, demoRight);
 
-    eyes.forEach(eye => {
-      if (!eye) return;
-      // Use CSS animation for blink, then remove
-      eye.classList.add('blink-anim');
-      setTimeout(() => eye.classList.remove('blink-anim'), 200);
-    });
-  }, 4500);
+      eyes.forEach(eye => {
+        if (!eye) return;
+        // Use CSS animation for blink, then remove
+        eye.classList.add('blink-anim');
+        setTimeout(() => eye.classList.remove('blink-anim'), 200);
+      });
+    }, 4500);
+  }
 
   /* ==========================================
      3. 60FPS LERP LOOP
@@ -187,11 +201,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return (1 - amt) * start + amt * end;
   }
 
-  function render(time) {
-    // 1. Lerp cursor
-    cursorTx = lerp(cursorTx, mouseX, 0.25);
-    cursorTy = lerp(cursorTy, mouseY, 0.25);
-    cursor.style.transform = `translate(${cursorTx}px, ${cursorTy}px)`;
+  let animationFrameId = null;
+
+  function render() {
+    if (document.hidden) {
+      animationFrameId = null;
+      return;
+    }
+
+    // 1. Lerp cursor when the desktop custom cursor is enabled.
+    if (cursorEnabled) {
+      cursorTx = lerp(cursorTx, mouseX, 0.25);
+      cursorTy = lerp(cursorTy, mouseY, 0.25);
+      cursor.style.transform = `translate(${cursorTx}px, ${cursorTy}px)`;
+    }
 
     // 2. Calculate normalized mouse tracking (-1 to 1)
     let normX = (mouseX / window.innerWidth) * 2 - 1;
@@ -230,9 +253,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (persLeft) persLeft.style.transform = pTransform;
     if (persRight) persRight.style.transform = pTransform;
 
-    requestAnimationFrame(render);
+    animationFrameId = requestAnimationFrame(render);
   }
-  requestAnimationFrame(render);
+
+  function startAnimationLoop() {
+    if (!allowMotion || animationFrameId !== null || document.hidden || (!cursorEnabled && !hasAnimatedFaces)) return;
+    animationFrameId = requestAnimationFrame(render);
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    } else {
+      startAnimationLoop();
+    }
+  });
+
+  startAnimationLoop();
 
   /* ==========================================
      4. DEMO ORIENTATION TOGGLE
@@ -259,9 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
      ========================================== */
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
+    if (!nav) return;
     if (window.scrollY > 40) nav.classList.add('scrolled');
     else nav.classList.remove('scrolled');
-  });
+  }, { passive: true });
 
   const reveals = document.querySelectorAll('.reveal, .pipeline-step, .pipeline-arrow, .feature-card, .speech-bubble, .story-text');
   const observer = new IntersectionObserver((entries) => {

@@ -1208,6 +1208,27 @@ body {
 /* ============================================================
    RESPONSIVE OVERHAUL (Flawless Flow)
    ============================================================ */
+/* ============================================================
+   PERFORMANCE & MOTION SAFETY
+   ============================================================ */
+@media (hover: none), (pointer: coarse) {
+  *, *::before, *::after { cursor: auto !important; }
+  .cursor { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal, .pipeline-step, .pipeline-arrow, .feature-card, .speech-bubble, .story-text {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 1024px) { 
   .demo-phone-frame.landscape { width: 380px; height: 196px; } 
   .hero { padding: 130px 40px 60px; }
@@ -1237,6 +1258,16 @@ body {
 }
 
 @media (max-width: 600px) {
+  body, .story-section, .story-section-bottom, .what-makes, .demo-section,
+  .how-section, .features-section, .support-section {
+    background-attachment: scroll;
+  }
+  .blob { animation: none; }
+  .nav.scrolled {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(245,240,232,0.96);
+  }
   .section { padding: 80px 24px; }
   .nav-inner { padding: 0 24px; }
   .hero { padding: 100px 24px 60px; }
